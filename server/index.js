@@ -8,8 +8,18 @@ import "dotenv/config";
 const app = express();
 const upload = multer({ dest: "uploads/" });
 
-app.use(cors());
+/* ---------- MIDDLEWARE ---------- */
+app.use(
+  cors({
+    origin: "*", // allow GitHub Pages & any frontend
+  })
+);
 app.use(express.json());
+
+/* ---------- HEALTH CHECK (IMPORTANT FOR RENDER) ---------- */
+app.get("/", (req, res) => {
+  res.send("✅ AI-Guide backend is running");
+});
 
 /* ---------- OCR IMAGE ---------- */
 app.post("/api/read-image", upload.single("image"), async (req, res) => {
@@ -17,6 +27,7 @@ app.post("/api/read-image", upload.single("image"), async (req, res) => {
     const result = await Tesseract.recognize(req.file.path, "eng");
     res.json({ text: result.data.text || "" });
   } catch (err) {
+    console.error(err);
     res.json({ text: "" });
   }
 });
@@ -50,28 +61,25 @@ Question: ${question}
 `;
 
   try {
-    const response = await fetch(
-      "https://api.groq.com/openai/v1/responses",
-      {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "openai/gpt-oss-120b",
-          input: prompt,
-          max_output_tokens: 500
-        })
-      }
-    );
+    const response = await fetch("https://api.groq.com/openai/v1/responses", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-oss-120b",
+        input: prompt,
+        max_output_tokens: 500,
+      }),
+    });
 
     const data = await response.json();
 
     let text = "";
     if (Array.isArray(data.output)) {
-      const msg = data.output.find(o => o.type === "message");
-      text = msg?.content?.map(c => c.text).join("") || "";
+      const msg = data.output.find((o) => o.type === "message");
+      text = msg?.content?.map((c) => c.text).join("") || "";
     }
 
     let parsed;
@@ -80,19 +88,23 @@ Question: ${question}
     } catch {
       parsed = {
         steps: ["I am thinking… please try again."],
-        encouragement: "Keep going!"
+        encouragement: "Keep going!",
       };
     }
 
     res.json(parsed);
-  } catch {
+  } catch (err) {
+    console.error(err);
     res.json({
       steps: ["AI service error. Please try again."],
-      encouragement: "You are doing great!"
+      encouragement: "You are doing great!",
     });
   }
 });
 
-app.listen(5000, () =>
-  console.log("✅ Backend running at http://localhost:5000")
-);
+/* ---------- START SERVER (CRITICAL FIX) ---------- */
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`✅ Backend running on port ${PORT}`);
+});
