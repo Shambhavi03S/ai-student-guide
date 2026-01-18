@@ -1,0 +1,218 @@
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: #1f2937;
+}
+
+/* LAYOUT */
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: linear-gradient(180deg, #1e293b, #0f172a);
+  color: white;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar button {
+  background: transparent;
+  border: 1px solid #334155;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background: #334155;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 32px;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-top: -10px;
+}
+
+/* SUBJECTS */
+.subjects {
+  display: flex;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.subjects button {
+  flex: 1;
+  padding: 16px;
+  border-radius: 14px;
+  border: none;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+
+.subjects button:nth-child(1) { background: #6366f1; }
+.subjects button:nth-child(2) { background: #22c55e; }
+.subjects button:nth-child(3) { background: #f97316; }
+
+.subjects .active {
+  outline: 3px solid #e0e7ff;
+}
+
+/* CARDS */
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* BADGE */
+.badge {
+  display: inline-block;
+  background: #eef2ff;
+  color: #4338ca;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* WARNING */
+.warning {
+  color: #ef4444;
+  margin-top: 8px;
+}
+
+/* INPUTS */
+input,
+textarea {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  margin-top: 10px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+textarea {
+  height: 120px;
+  resize: none;
+}
+
+/* PREVIEW */
+.preview {
+  width: 140px;
+  margin-top: 12px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* BUTTON */
+button {
+  margin-top: 14px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: none;
+  background: #6366f1;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:disabled {
+  background: #a5b4fc;
+  cursor: not-allowed;
+}
+
+/* THINKING */
+.thinking {
+  background: #eef2ff;
+  padding: 16px;
+  border-radius: 14px;
+  text-align: center;
+  font-weight: 600;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* STEPS */
+.step {
+  background: white;
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 14px;
+  border-left: 6px solid #6366f1;
+}
+
+/* LOGIN */
+.login {
+  height: 100vh;
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* ✅ LOGIN INPUT FIX */
+.login input {
+  width: 280px;
+  max-width: 90%;
+  text-align: center;
+  font-size: 16px;
+}
+
+.login button {
+  width: 160px;
+}
+
+/* ---------- MOBILE VIEW ---------- */
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .main {
+    padding: 16px;
+  }
+
+  .subjects {
+    flex-direction: column;
+  }
+
+  .preview {
+    width: 100%;
+  }
+}
