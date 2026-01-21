@@ -30,7 +30,7 @@ export default function App() {
     const fd = new FormData();
     fd.append("image", file);
 
-    const res = await fetch("http://localhost:5000/api/read-image", {
+    const res = await fetch("https://ai-student-guide-backend.onrender.com/api/read-image", {
       method: "POST",
       body: fd
     });
@@ -45,7 +45,7 @@ export default function App() {
     setSteps([]);
 
     try {
-      const res = await fetch("http://localhost:5000/api/ask-ai", {
+      const res = await fetch("https://ai-student-guide-backend.onrender.com/api/ask-ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
