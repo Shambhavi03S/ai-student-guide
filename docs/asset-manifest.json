@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ai-student-guide/static/css/main.b23857d4.css",
+    "main.js": "/ai-student-guide/static/js/main.8860e41f.js",
+    "index.html": "/ai-student-guide/index.html",
+    "main.b23857d4.css.map": "/ai-student-guide/static/css/main.b23857d4.css.map",
+    "main.8860e41f.js.map": "/ai-student-guide/static/js/main.8860e41f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b23857d4.css",
+    "static/js/main.8860e41f.js"
+  ]
+}
